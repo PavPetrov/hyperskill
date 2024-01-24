@@ -1,6 +1,5 @@
 package account.security;
 
-import account.service.AppUserDetailsServiceImpl;
 import account.config.RestAuthenticationEntryPoint;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,6 +16,7 @@ import static org.springframework.security.web.util.matcher.RegexRequestMatcher.
 
 
 @Configuration
+@EnableWebSecurity
 public class SecurityConfiguration {
     private final RestAuthenticationEntryPoint restAuthenticationEntryPoint;
 
@@ -28,14 +28,14 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                //.exceptionHandling(ex -> ex.authenticationEntryPoint(restAuthenticationEntryPoint)) // Handle auth errors
+           //     .exceptionHandling(ex -> ex.authenticationEntryPoint(restAuthenticationEntryPoint)) // Handle auth errors
                 .csrf(csrf -> {
                     csrf.disable();
                 }) // For Postman
-                //     .csrf(cfg -> cfg.disable()).headers(cfg -> cfg.frameOptions().disable())
-                //      .headers(headers -> headers.frameOptions().disable()) // For the H2 console
+                     .csrf(cfg -> cfg.disable()).headers(cfg -> cfg.frameOptions().disable())
+                      .headers(headers -> headers.frameOptions().disable()) // For the H2 console
                 .authorizeHttpRequests(auth -> auth  // manage access
-                                //        .requestMatchers(regexMatcher(".*h2-console.*")).permitAll()
+                                        .requestMatchers(regexMatcher(".*h2-console.*")).permitAll()
                                 .requestMatchers("/actuator/shutdown", "/error/**").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/api/auth/signup").permitAll()
                                 //             .requestMatchers(HttpMethod.GET, "/api/empl/payment").authenticated()

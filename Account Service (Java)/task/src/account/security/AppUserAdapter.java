@@ -26,7 +26,7 @@ public class AppUserAdapter implements UserDetails {
 
     @Override
     public String getUsername() {
-        return user.getEmail().toLowerCase();
+        return user.getEmail();
     }
 
     @Override

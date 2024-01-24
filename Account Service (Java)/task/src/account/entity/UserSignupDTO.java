@@ -3,6 +3,7 @@ package account.entity;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 
 public class UserSignupDTO {
@@ -17,7 +18,8 @@ public class UserSignupDTO {
     private String email;
 
     //  @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @NotEmpty
+    @Size(min = 12, message = "Password length must be 12 chars minimum!")
+    @NotNull
     private String password;
 
     public UserSignupDTO() {
