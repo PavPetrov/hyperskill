@@ -18,11 +18,9 @@ import static org.springframework.security.web.util.matcher.RegexRequestMatcher.
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
-    private final RestAuthenticationEntryPoint restAuthenticationEntryPoint;
 
 
     public SecurityConfiguration(RestAuthenticationEntryPoint restAuthenticationEntryPoint) {
-        this.restAuthenticationEntryPoint = restAuthenticationEntryPoint;
     }
 
     @Bean
@@ -38,6 +36,7 @@ public class SecurityConfiguration {
                                         .requestMatchers(regexMatcher(".*h2-console.*")).permitAll()
                                 .requestMatchers("/actuator/shutdown", "/error/**").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/api/auth/signup").permitAll()
+                                .requestMatchers( "/api/acct/payments").permitAll()
                                 //             .requestMatchers(HttpMethod.GET, "/api/empl/payment").authenticated()
                                 .anyRequest().authenticated()
                         // other matchers

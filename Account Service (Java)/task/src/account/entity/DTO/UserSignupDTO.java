@@ -1,32 +1,35 @@
-package account.entity;
+package account.entity.DTO;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 
-public class UserLoginDTO {
-
-    private Long id;
+public class UserSignupDTO {
     @NotEmpty
     private String name;
     @NotEmpty
     private String lastname;
 
-    //  @Pattern(regexp = "\\w+(@acme.com)$")
+    @Pattern(regexp = "\\w+(@acme.com)$")
     @NotEmpty
     @NotNull
     private String email;
 
     //  @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @Size(min = 12, message = "Password length must be 12 chars minimum!")
+    @NotNull
+    private String password;
 
-    public UserLoginDTO() {
+    public UserSignupDTO() {
     }
 
     public String getName() {
         return name;
     }
 
-    public UserLoginDTO setName(String name) {
+    public UserSignupDTO setName(String name) {
         this.name = name;
         return this;
     }
@@ -35,7 +38,7 @@ public class UserLoginDTO {
         return lastname;
     }
 
-    public UserLoginDTO setLastname(String lastname) {
+    public UserSignupDTO setLastname(String lastname) {
         this.lastname = lastname;
         return this;
     }
@@ -44,17 +47,17 @@ public class UserLoginDTO {
         return email;
     }
 
-    public UserLoginDTO setEmail(String email) {
+    public UserSignupDTO setEmail(String email) {
         this.email = email;
         return this;
     }
 
-    public Long getId() {
-        return id;
+    public String getPassword() {
+        return password;
     }
 
-    public UserLoginDTO setId(Long id) {
-        this.id = id;
+    public UserSignupDTO setPassword(String password) {
+        this.password = password;
         return this;
     }
 }
